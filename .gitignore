@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# project internal docs
+PROJECT_GUIDE.md
+
 # macOS
 .DS_Store
 
