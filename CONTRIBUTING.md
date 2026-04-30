@@ -728,17 +728,21 @@ export default defineConfig({
 
 #### 第 2 步：初始化本地 Git 并关联远程仓库
 
+本项目使用 **SSH** 方式与 GitHub 通信（假设本机已生成 SSH key 并添加到 GitHub 账户，可用 `ssh -T git@github.com` 验证）。
+
 ```bash
 cd /path/to/personal_web
 git init
 git add .
 git commit -m "Initial commit: personal academic website"
 git branch -M main
-git remote add origin https://github.com/jianxing86/jianxing86.github.io.git
+git remote add origin git@github.com:jianxing86/jianxing86.github.io.git
 git push -u origin main
 ```
 
 > **提示**：如果你已经在本地有 Git 仓库，只需执行最后两行关联远程仓库并推送即可。
+>
+> 若未配置 SSH，也可改用 HTTPS：`git remote add origin https://github.com/jianxing86/jianxing86.github.io.git`（需在 push 时通过 PAT 或浏览器授权）。
 
 #### 第 3 步：配置 GitHub Pages 源
 
