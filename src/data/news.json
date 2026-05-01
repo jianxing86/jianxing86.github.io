@@ -1,0 +1,16 @@
+[
+  {
+    "id": "example-news-1",
+    "title": { "en": "Groundbreaking Discovery in Stellar Spectroscopy", "zh": "恒星光谱学的突破性发现" },
+    "source": "Science Daily",
+    "date": "2025-06-15",
+    "url": "https://example.com/news-article-1"
+  },
+  {
+    "id": "example-news-2",
+    "title": { "en": "New Variable Star Catalog Released", "zh": "新变星星表发布" },
+    "source": "Astronomy Magazine",
+    "date": "2025-03-20",
+    "url": "https://example.com/news-article-2"
+  }
+]
