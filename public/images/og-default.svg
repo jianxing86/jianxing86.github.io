@@ -11,7 +11,7 @@
   <circle cx="1050" cy="400" r="150" fill="#60A5FA" opacity="0.06" />
   <!-- Title -->
   <text x="80" y="260" font-family="'Space Grotesk','Inter',sans-serif" font-size="64" font-weight="700" fill="#F8FAFC">
-    Astro Scholar
+    Jianxing Chen
   </text>
   <!-- Subtitle -->
   <text x="80" y="320" font-family="'Inter','Noto Sans SC',sans-serif" font-size="28" fill="#94A3B8">
