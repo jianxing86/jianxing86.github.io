@@ -8,7 +8,7 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
 export default defineConfig({
-  site: 'https://jianxing86.github.io',
+  site: 'https://jianxing-chen.github.io',
   base: '/',
   integrations: [
     react(),
