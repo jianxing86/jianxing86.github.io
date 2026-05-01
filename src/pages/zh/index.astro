@@ -5,6 +5,7 @@ import { SITE_CONFIG } from '@/config/site';
 import PublicationCard from '@/components/ui/PublicationCard.astro';
 import BlogPostCard from '@/components/ui/BlogPostCard.astro';
 import { getCollection } from 'astro:content';
+import { getGalleryThumbnail } from '@/utils/cloudinary';
 
 const lang = 'zh';
 const t = useTranslations(lang);
@@ -154,7 +155,7 @@ const featuredPhotos = galleryData;
              class="photo-slide absolute inset-0 transition-opacity duration-2000 ease-in-out"
              style={`opacity: ${i === 0 ? 1 : 0}`}>
             <img
-              src={photo.thumbnail}
+              src={getGalleryThumbnail(photo.cloudinaryId)}
               alt={photo.title[lang as keyof typeof photo.title]}
               class="w-full h-full object-cover"
               loading={i === 0 ? 'eager' : 'lazy'}

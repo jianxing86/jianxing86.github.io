@@ -32,6 +32,7 @@ jobs:
         env:
           PUBLIC_UMAMI_WEBSITE_ID: ${{ secrets.UMAMI_WEBSITE_ID }}
           PUBLIC_UMAMI_SCRIPT_URL: ${{ secrets.UMAMI_SCRIPT_URL }}
+          PUBLIC_CLOUDINARY_CLOUD_NAME: ${{ secrets.CLOUDINARY_CLOUD_NAME }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
