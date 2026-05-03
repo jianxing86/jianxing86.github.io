@@ -22,7 +22,7 @@ const sortedNews = (newsData as NewsItem[]).sort(
 
 <BaseLayout title={`${t('about.section.news')} - ${t('site.title')}`} description="全部新闻报道" lang={lang}>
   <!-- Back link -->
-  <a href={getLocalizedPath('/about', lang)}
+  <a href={getLocalizedPath('/about/#news', lang)}
     class="inline-flex items-center gap-1.5 text-sm text-text-light/60 dark:text-text-dark/60
            hover:text-primary-light dark:hover:text-primary-dark transition-colors mb-8">
     <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
