@@ -1,0 +1,61 @@
+---
+import BaseLayout from '@/components/layout/BaseLayout.astro';
+import { useTranslations, getLocalizedPath } from '@/i18n/ui';
+import newsData from '@/data/news.json';
+
+type NewsItem = {
+  id: string;
+  title: Record<string, string>;
+  source: string;
+  date: string;
+  url: string;
+  highlight: boolean;
+};
+
+const lang = 'zh';
+const t = useTranslations(lang);
+
+const sortedNews = (newsData as NewsItem[]).sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+---
+
+<BaseLayout title={`${t('about.section.news')} - ${t('site.title')}`} description="全部新闻报道" lang={lang}>
+  <!-- Back link -->
+  <a href={getLocalizedPath('/about', lang)}
+    class="inline-flex items-center gap-1.5 text-sm text-text-light/60 dark:text-text-dark/60
+           hover:text-primary-light dark:hover:text-primary-dark transition-colors mb-8">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+    {t('common.back')}
+  </a>
+
+  <h2 class="text-3xl font-bold text-heading-light dark:text-heading-dark mb-3">
+    {t('about.section.news')}
+  </h2>
+  <div class="h-0.5 bg-gradient-to-r from-primary-light/40 via-slate-200 dark:via-white/10 to-transparent mb-10" />
+
+  <div class="space-y-4">
+    {sortedNews.map((item) => (
+      <a href={item.url} target="_blank" rel="noopener noreferrer"
+         class="block p-4 rounded-lg border border-border-light dark:border-border-dark hover:border-primary-light dark:hover:border-primary-dark transition-colors group">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1 min-w-0">
+            <h3 class="text-lg font-medium text-text-light dark:text-text-dark group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors">
+              {item.title[lang]}
+            </h3>
+            <div class="flex items-center gap-2 mt-1 text-sm text-text-light/60 dark:text-text-dark/60">
+              <span>{item.source}</span>
+              <span>·</span>
+              <time datetime={item.date}>{new Date(item.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' })}</time>
+            </div>
+          </div>
+          <svg class="w-5 h-5 text-text-light/40 dark:text-text-dark/40 group-hover:text-primary-light dark:group-hover:text-primary-dark transition-colors flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

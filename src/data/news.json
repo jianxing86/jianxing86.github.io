@@ -4,13 +4,47 @@
     "title": { "en": "Groundbreaking Discovery in Stellar Spectroscopy", "zh": "恒星光谱学的突破性发现" },
     "source": "Science Daily",
     "date": "2025-06-15",
-    "url": "https://example.com/news-article-1"
+    "url": "https://example.com/news-article-1",
+    "highlight": true
   },
   {
     "id": "example-news-2",
     "title": { "en": "New Variable Star Catalog Released", "zh": "新变星星表发布" },
     "source": "Astronomy Magazine",
     "date": "2025-03-20",
-    "url": "https://example.com/news-article-2"
+    "url": "https://example.com/news-article-2",
+    "highlight": true
+  },
+  {
+    "id": "example-news-3",
+    "title": { "en": "AI-Powered Methods Revolutionize Galactic Archaeology", "zh": "AI 驱动方法革新银河考古学" },
+    "source": "Nature Astronomy",
+    "date": "2024-11-08",
+    "url": "https://example.com/news-article-3",
+    "highlight": true
+  },
+  {
+    "id": "example-news-4",
+    "title": { "en": "LAMOST DR10 Released with 17 Million Spectra", "zh": "LAMOST DR10 发布 1700 万条光谱" },
+    "source": "NAOC News",
+    "date": "2024-07-01",
+    "url": "https://example.com/news-article-4",
+    "highlight": true
+  },
+  {
+    "id": "example-news-5",
+    "title": { "en": "International Team Maps Milky Way Halo Structure", "zh": "国际团队绘制银河系晕结构图" },
+    "source": "ESA Press Release",
+    "date": "2024-02-14",
+    "url": "https://example.com/news-article-5",
+    "highlight": true
+  },
+  {
+    "id": "example-news-6",
+    "title": { "en": "Early Career Researcher Award in Astrophysics", "zh": "天体物理学青年研究者奖" },
+    "source": "IAU Bulletin",
+    "date": "2023-09-30",
+    "url": "https://example.com/news-article-6",
+    "highlight": false
   }
 ]
