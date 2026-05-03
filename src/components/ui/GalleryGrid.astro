@@ -8,6 +8,7 @@ interface Photo {
   description: { en: string; zh: string };
   date: string;
   tags: string[];
+  location: string;
   width: number;
   height: number;
   featured: boolean;
@@ -19,40 +20,56 @@ interface Props {
 }
 
 const { photos, lang } = Astro.props;
+
+// Group photos by location
+const grouped = photos.reduce<Record<string, Photo[]>>((acc, photo) => {
+  (acc[photo.location] ??= []).push(photo);
+  return acc;
+}, {});
+const locations = Object.keys(grouped);
 ---
 
-<div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-  {photos.map((photo) => (
-    <a
-      href={getGalleryFullSize(photo.cloudinaryId)}
-      data-pswp-width={photo.width}
-      data-pswp-height={photo.height}
-      data-cropped="true"
-      class="gallery-item group relative block overflow-hidden rounded-lg
-             border border-slate-200 dark:border-slate-700/50
-             shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-black/20
-             transition-all duration-300"
-    >
-      <img
-        src={getGalleryThumbnail(photo.cloudinaryId)}
-        alt={photo.title[lang as keyof typeof photo.title] || photo.title.en}
-        width={photo.width}
-        height={photo.height}
-        loading="lazy"
-        class="w-full aspect-[3/2] object-cover transition-transform duration-300 group-hover:scale-[1.03]"
-      />
-      <!-- Hover overlay -->
-      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent
-                  opacity-0 group-hover:opacity-100 transition-opacity duration-300
-                  flex flex-col justify-end p-4">
-        <h3 class="text-white font-medium text-sm sm:text-base leading-tight">
-          {photo.title[lang as keyof typeof photo.title] || photo.title.en}
-        </h3>
-        <p class="text-white/75 text-xs sm:text-sm mt-1 line-clamp-2">
-          {photo.description[lang as keyof typeof photo.description] || photo.description.en}
-        </p>
+<div id="gallery-grid" class="space-y-16">
+  {locations.map((location) => (
+    <section>
+      <h3 class="text-2xl font-bold text-heading-light dark:text-heading-dark mb-6">
+        {location}
+      </h3>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+        {grouped[location].map((photo) => (
+          <a
+            href={getGalleryFullSize(photo.cloudinaryId)}
+            data-pswp-width={photo.width}
+            data-pswp-height={photo.height}
+            data-cropped="true"
+            class="gallery-item group relative block overflow-hidden rounded-lg
+                   border border-slate-200 dark:border-slate-700/50
+                   shadow-sm hover:shadow-md dark:shadow-none dark:hover:shadow-lg dark:hover:shadow-black/20
+                   transition-all duration-300"
+          >
+            <img
+              src={getGalleryThumbnail(photo.cloudinaryId)}
+              alt={photo.title[lang as keyof typeof photo.title] || photo.title.en}
+              width={photo.width}
+              height={photo.height}
+              loading="lazy"
+              class="w-full aspect-[3/2] object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+            />
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent
+                        opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                        flex flex-col justify-end p-4">
+              <h4 class="text-white font-medium text-sm sm:text-base leading-tight">
+                {photo.title[lang as keyof typeof photo.title] || photo.title.en}
+              </h4>
+              <p class="text-white/75 text-xs sm:text-sm mt-1 line-clamp-2">
+                {photo.description[lang as keyof typeof photo.description] || photo.description.en}
+              </p>
+            </div>
+          </a>
+        ))}
       </div>
-    </a>
+    </section>
   ))}
 </div>
 

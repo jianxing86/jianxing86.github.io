@@ -17,42 +17,17 @@ const catalogs = allCatalogs.filter((c) => c.id.startsWith('en/'));
 ---
 
 <BaseLayout title={`${t('research.title')} - ${t('site.title')}`} description={t('research.description')} lang={lang}>
-  <div class="mb-10">
-    <h1 class="text-3xl sm:text-4xl font-bold text-heading-light dark:text-heading-dark mb-3">
-      {t('research.title')}
-    </h1>
-    <p class="text-lg text-text-light/70 dark:text-text-dark/70 max-w-2xl">
-      {t('research.description')}
-    </p>
-  </div>
+  <!-- ═══ Research Programs ═══ -->
+  <section id="programs" style="scroll-margin-top: 5rem;">
+    <h2 class="text-3xl font-bold text-heading-light dark:text-heading-dark mb-3">
+      {t('research.programs')}
+    </h2>
+    <div class="h-0.5 bg-gradient-to-r from-primary-light/40 via-slate-200 dark:via-white/10 to-transparent mb-8" />
 
-  {/* Filter buttons */}
-  <div class="flex gap-2 mb-8" id="filter-bar">
-    <button data-filter="all"
-      class="filter-btn active px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200
-             bg-primary-light text-white dark:bg-primary-dark dark:text-slate-900">
-      {t('research.all')}
-    </button>
-    <button data-filter="ongoing"
-      class="filter-btn px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200
-             bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300
-             hover:bg-slate-200 dark:hover:bg-slate-600">
-      {t('research.ongoing')}
-    </button>
-    <button data-filter="completed"
-      class="filter-btn px-4 py-1.5 text-sm font-medium rounded-full transition-colors duration-200
-             bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300
-             hover:bg-slate-200 dark:hover:bg-slate-600">
-      {t('research.completed')}
-    </button>
-  </div>
-
-  {/* Project grid */}
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="project-grid">
-    {projects.map((project) => {
-      const slug = project.id.replace('en/', '');
-      return (
-        <div class="project-item" data-status={project.data.status}>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {projects.filter((p) => p.data.status === 'completed').map((project) => {
+        const slug = project.id.replace('en/', '');
+        return (
           <ProjectCard
             title={project.data.title}
             description={project.data.description}
@@ -60,20 +35,21 @@ const catalogs = allCatalogs.filter((c) => c.id.startsWith('en/'));
             status={project.data.status}
             tags={project.data.tags}
             href={getLocalizedPath(`/research/${slug}`, lang)}
-            statusLabel={project.data.status === 'ongoing' ? t('research.ongoing') : t('research.completed')}
+            statusLabel={t('research.completed')}
           />
-        </div>
-      );
-    })}
-  </div>
+        );
+      })}
+    </div>
+  </section>
 
-  {/* Catalogs section */}
-  <hr class="my-12 border-gray-200 dark:border-gray-700/50" />
+  <!-- ═══ Data Products ═══ -->
+  <hr class="my-16 border-slate-200/60 dark:border-white/10" />
 
-  <section id="catalogs">
-    <h2 class="text-2xl sm:text-3xl font-bold text-heading-light dark:text-heading-dark mb-6">
-      {t('research.data_catalogs')}
+  <section id="data-products">
+    <h2 class="text-3xl font-bold text-heading-light dark:text-heading-dark mb-3">
+      {t('research.data_products')}
     </h2>
+    <div class="h-0.5 bg-gradient-to-r from-primary-light/40 via-slate-200 dark:via-white/10 to-transparent mb-8" />
 
     <div class="grid gap-6">
       {catalogs.map((catalog) => {
@@ -81,7 +57,7 @@ const catalogs = allCatalogs.filter((c) => c.id.startsWith('en/'));
         return (
           <a
             href={getLocalizedPath(`/catalogs/${slug}`, lang)}
-            class="block group border border-gray-200 dark:border-gray-700/50 rounded-xl p-6
+            class="block group border border-slate-200/80 dark:border-white/[0.06] rounded-xl p-6
                    hover:border-primary-light dark:hover:border-primary-dark
                    hover:shadow-md transition-all duration-200
                    bg-white/50 dark:bg-white/[0.02]"
@@ -124,37 +100,3 @@ const catalogs = allCatalogs.filter((c) => c.id.startsWith('en/'));
     )}
   </section>
 </BaseLayout>
-
-<script>
-  function initFilter() {
-    const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
-    const items = document.querySelectorAll<HTMLElement>('.project-item');
-
-    const activeClasses = ['bg-primary-light', 'text-white', 'dark:bg-primary-dark', 'dark:text-slate-900'];
-    const inactiveClasses = ['bg-slate-100', 'text-slate-600', 'dark:bg-slate-700', 'dark:text-slate-300', 'hover:bg-slate-200', 'dark:hover:bg-slate-600'];
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const filter = btn.dataset.filter;
-
-        buttons.forEach((b) => {
-          b.classList.remove(...activeClasses, 'active');
-          b.classList.add(...inactiveClasses);
-        });
-        btn.classList.remove(...inactiveClasses);
-        btn.classList.add(...activeClasses, 'active');
-
-        items.forEach((item) => {
-          if (filter === 'all' || item.dataset.status === filter) {
-            item.style.display = '';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
-  }
-
-  initFilter();
-  document.addEventListener('astro:after-swap', initFilter);
-</script>
